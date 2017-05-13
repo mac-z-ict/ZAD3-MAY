@@ -1,0 +1,71 @@
+General API description
+		/movies 		/movies/{movieId}
+GET 	Get all			Get single
+POST 	New 			---
+PUT 	---				Update
+DELETE	Delete all		Delete single
+
+
+/moviedatabase/rest
+
+GET 	/movies 									Get all movies
+POST	/movies 									Add new movie
+GET 	/movies/{movieId}							Get single movie
+PUT		/movies/{movieId}							Update movie
+GET 	/movies/{movieId}/comments					Get movie comments
+POST 	/movies/{movieId}/comments					Add movie comment
+DELETE 	/movies/{movieId}/comments/{commentId}		Delete movie comment
+POST	/movies/{movieId}/rate						Add movie rating
+GET 	/movies/{movieId}/actors					Get movie actors
+
+GET 	/actors										Get all actors
+POST	/actors										Add new actor
+GET 	/actors/{actorId}							Get single actor
+GET 	/actors/{actorId}/movies 					Get actor movies
+POST	/actors/{actorId}/movies 					Add actor to movie/movie to actor
+
+
+curl -XGET http://localhost:8080/moviedatabase/rest/movies
+curl -XPOST -H 'content-type: application/json' -d '{"title":"no id movie 0","actors":[],"comments":[],"rates":[]}' http://localhost:8080/moviedatabase/rest/movies
+curl -XGET http://localhost:8080/moviedatabase/rest/movies
+curl -XGET http://localhost:8080/moviedatabase/rest/movies/0
+curl -XGET http://localhost:8080/moviedatabase/rest/movies/0/comments
+curl -XPOST -H 'content-type: application/json' -d '{"text":"sample comment 0"}' http://localhost:8080/moviedatabase/rest/movies/0/comments
+curl -XGET http://localhost:8080/moviedatabase/rest/movies/0/comments
+curl -XDELETE http://localhost:8080/moviedatabase/rest/movies/0/comments/0
+curl -XGET http://localhost:8080/moviedatabase/rest/movies/0/comments
+
+curl -XPOST -H 'content-type: application/json' -d '5' http://localhost:8080/moviedatabase/rest/movies/0/rate
+curl -XGET http://localhost:8080/moviedatabase/rest/movies/0
+
+curl -XDELETE http://localhost:8080/moviedatabase/rest/movies/0
+curl -XGET http://localhost:8080/moviedatabase/rest/movies
+
+curl -XGET http://localhost:8080/moviedatabase/rest/actors
+curl -XPOST -H 'content-type: application/json' -d '{"firstName":"name 0", "lastName":"lastname 0"}' http://localhost:8080/moviedatabase/rest/actors
+curl -XGET http://localhost:8080/moviedatabase/rest/actors
+curl -XGET http://localhost:8080/moviedatabase/rest/actors/0
+curl -XPUT -H 'content-type: application/json' -d '{"firstName":"put 0", "lastName":"put 0"}' http://localhost:8080/moviedatabase/rest/actors/0
+curl -XGET http://localhost:8080/moviedatabase/rest/actors/0
+curl -XDELETE http://localhost:8080/moviedatabase/rest/actors/0
+curl -XGET http://localhost:8080/moviedatabase/rest/actors
+
+curl -XPOST -H 'content-type: application/json' -d '{"title":"no id movie 0","actors":[],"comments":[],"rates":[]}' http://localhost:8080/moviedatabase/rest/movies
+curl -XPOST -H 'content-type: application/json' -d '{"firstName":"name 0", "lastName":"lastname 0"}' http://localhost:8080/moviedatabase/rest/actors
+curl -XGET http://localhost:8080/moviedatabase/rest/actors/0
+curl -XGET http://localhost:8080/moviedatabase/rest/actors/0/movies
+curl -XGET http://localhost:8080/moviedatabase/rest/movies/0
+curl -XGET http://localhost:8080/moviedatabase/rest/movies/0/actors
+
+curl -XPOST -H 'content-type: application/json' -d '0' http://localhost:8080/moviedatabase/rest/actors/0/movies
+curl -XGET http://localhost:8080/moviedatabase/rest/actors/0
+curl -XGET http://localhost:8080/moviedatabase/rest/actors/0/movies
+curl -XGET http://localhost:8080/moviedatabase/rest/movies/0
+curl -XGET http://localhost:8080/moviedatabase/rest/movies/0/actors
+
+curl -XDELETE http://localhost:8080/moviedatabase/rest/actors/0
+curl -XGET http://localhost:8080/moviedatabase/rest/movies/0
+curl -XGET http://localhost:8080/moviedatabase/rest/movies/0/actors
+
+curl -XDELETE http://localhost:8080/moviedatabase/rest/movies/0
+curl -XGET http://localhost:8080/moviedatabase/rest/movies
